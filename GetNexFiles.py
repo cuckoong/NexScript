@@ -6,9 +6,9 @@ import math
 from PreprocessingToNex import *
 
 
-input = "E:\\Panda\\PandaData\\ShiftingData\\20181220\\"
-mergefile(input)
+#input = "E:\\Panda\\PandaData\\ShiftingData\\20181220\\"
 
-
+mergefile( 'E:\\Panda\\PandaData\\ShiftingData\\20181217\\')
+#mergefile( "E:\\Panda\\PandaData\\ShiftingData\\20181220\\")
 
 
