@@ -1,0 +1,21 @@
+%merge neuron units with _digital.pl2 file
+
+
+InputPl2path = "C:\Users\309i7\Documents\NeuroExplorer 5\Data\TestDataFile5.nex"
+OutputNexPath = "E:\Panda\TestFile.Nex5"
+%InputUnitspath = ".mat"
+
+doc = OpenDocument(InputPl2path)
+%Msg("Now processing the, GetDocTitle(GetActiveDocument()), files")
+
+%run ExtractEvents.nsc to extract events and make intervals
+RunScript("C:\Users\309i7\Documents\NeuroExplorer 5\Scripts\Shifting\ExtractEvents.nsc")
+%open matlab engine
+ExecuteMenuCommand("Matlab|Get Data From Matlab|Open Matlab As Engine")
+%load the file contain units
+%loadFileStr = 
+ExecuteMatlabCommand("load(InputUnitspath)")
+%GetVarFromMatlab(doc,"Units",1)
+SaveDocumentAs(doc, OutputNexPath)
+CloseDocument(doc)
+

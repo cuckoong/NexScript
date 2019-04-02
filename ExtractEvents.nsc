@@ -1,0 +1,67 @@
+doc = GetActiveDocument()
+
+%extract events
+%please refer to the arduino file
+doc["TrialEnd"] = MarkerExtract(doc, "Strobed", "=242,EOF,END")
+doc["TrialStart"] = MarkerExtract(doc, "Strobed", "=2,EOF,END")
+
+%cue
+doc["Cue"] = MarkerExtract(doc, "Strobed", "=6,OR,=12,EOF,END")
+
+doc["Pro"] = MarkerExtract(doc, "Strobed", "=6,EOF,END")
+doc["Anti"] = MarkerExtract(doc, "Strobed", "=12,EOF,END")
+
+
+%stimulus 
+doc["stim"] = MarkerExtract(doc, "Strobed", "=84,OR,=68,OR,=124,OR,=70,EOF,END")
+
+
+%correct or mistake
+doc["correct"] = MarkerExtract(doc, "Strobed", "=10,OR,=64,EOF,END")
+doc["Incorrect"] = MarkerExtract(doc, "Strobed", "=48,EOF,END")
+doc["Omission"] = MarkerExtract(doc, "Strobed", "=240,EOF,END")
+doc["Early"] = MarkerExtract(doc, "Strobed", "=112,EOF,END")
+
+
+
+%response
+doc["Choice"] = MarkerExtract(doc, "Strobed", "=26,OR,=4,EOF,END")
+
+
+%make trials
+%The interval include (trial start -2s) to Trial end(Choice or omission or early termination)
+doc["Trial"] = MakeIntFromStart(doc["TrialStart"], doc["TrialEnd"], -1.48, 1.48)
+doc["ProTrial"] = IntFind(doc["Trial"], doc["Pro"])
+doc["AntiTrial"] = IntFind(doc["Trial"], doc["Anti"])
+
+%anti/pro cue epoch
+doc["AntiCueEpoch"] = MakeIntervals(doc["Anti"], 0, 1)
+doc["ProCueEpoch"] = MakeIntervals(doc["Pro"], 0, 1)
+
+%1s before pro/anti cue 
+doc["AntiCueBeforeEpoch"] = MakeIntervals(doc["Anti"], -1, 0)
+doc["ProCueBeforeEpoch"] = MakeIntervals(doc["Pro"], -1, 0)
+doc["CueBeforeEpoch"] = MakeIntervals(doc["Cue"], -1, 0)
+
+%1s after pro/anti cue 
+doc["AntiCueAfterEpoch"] = MakeIntervals(doc["Anti"], 0, 1)
+doc["ProCueAfterEpoch"] = MakeIntervals(doc["Pro"], 0, 1)
+doc["CueAfterEpoch"] = MakeIntervals(doc["Cue"], 0, 1)
+
+%seperate trials into correct/incorrect/early/omission
+doc["CorrectTrial"] = IntFind(doc["Trial"], doc["correct"])
+doc["inCorrectTrial"] = IntFind(doc["Trial"], doc["Incorrect"])
+doc["EarlyTrial"] = IntFind(doc["Trial"], doc["Early"])
+doc["OmissionTrial"] = IntFind(doc["Trial"], doc["Omission"])
+
+
+%check correct algorithm
+doc["AntiCorrectTrial"] = IntFind(doc["AntiTrial"], doc["correct"])
+doc["AntiInCorrectTrial"] = IntFind(doc["AntiTrial"], doc["Incorrect"])
+doc["ProInCorrectTrial"] = IntFind(doc["ProTrial"], doc["Incorrect"])
+doc["ProCorrectTrial"] = IntFind(doc["ProTrial"], doc["correct"])
+
+
+%first pro/anti trial after anti/pro trial
+doc["1st_Pro_AfterAnti"] = FirstNAfter(doc["Pro"], doc["Anti"], 1)
+doc["1st_Anti_AfterPro"] = FirstNAfter(doc["Anti"], doc["Pro"],1)
