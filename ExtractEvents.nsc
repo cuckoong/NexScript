@@ -65,3 +65,8 @@ doc["ProCorrectTrial"] = IntFind(doc["ProTrial"], doc["correct"])
 %first pro/anti trial after anti/pro trial
 doc["1st_Pro_AfterAnti"] = FirstNAfter(doc["Pro"], doc["Anti"], 1)
 doc["1st_Anti_AfterPro"] = FirstNAfter(doc["Anti"], doc["Pro"],1)
+
+
+%Left/Right stimulus extraction, ignore rules
+doc["LeftStimulus"] = MarkerExtract(doc, "Strobed", "=84,OR,=70,EOF,END")
+doc["RightStimulus"] = MarkerExtract(doc, "Strobed", "=68,OR,=124,EOF,END")

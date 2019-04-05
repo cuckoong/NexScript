@@ -23,7 +23,6 @@ print('Steady Trials in Pro Task has '+str(Num_Pro_Steady)+' blocks')
 print('Steady Trials in Anti Task has '+str(Num_Anti_Steady)+' blocks')
 
 
-
 #This is event based on pro and anti cue.
 def GetSteadyBlock(Num_Steady,TrialTs,first_AfterSwitch,TrialType):
     #Get steady block from pro/anti trials
@@ -44,3 +43,11 @@ def GetSteadyBlock(Num_Steady,TrialTs,first_AfterSwitch,TrialType):
 
 GetSteadyBlock(Num_Anti_Steady,AntiTs,first_Pro_AfterSwitch,'Anti')
 GetSteadyBlock(Num_Pro_Steady,ProTs,first_Anti_AfterSwitch,'Pro')
+
+
+#get each bin information for pro/anti steady reference in each pro/anti steady trial (help by the template)
+
+
+
+
+
