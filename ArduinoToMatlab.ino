@@ -236,6 +236,7 @@ void loop() {
         PORTG = B00000001;  //strobe
         delay(1);
         PORTG = B00000000;  //strobe 
+        RewardTime_Left = 80;
         delay(RewardTime_Left);
         PORTE = B00000000;
         PORTA = B11110010; //trial end
@@ -243,38 +244,6 @@ void loop() {
         delay(1);
         PORTG = B00000000; 
         break;
-
-      case 'l':
-        PORTE = B00001000; //small left water valve
-        PORTA = B00010100;  //small left water valve time stamp
-        PORTG = B00000000;  //strobe
-        PORTG = B00000001;  //strobe
-        delay(1);
-        PORTG = B00000000;  //strobe
-        delay(RewardTime_Left/5);
-        PORTE = B00000000;
-        PORTA = B11110010; //trial end
-        PORTG = B00000001;
-        delay(1);
-        PORTG = B00000000;
-        break;
-
-      case 'r':
-        //mp3_play(20);
-        PORTE = B00100000; //small right water valve
-        PORTA = B00110100;  //small right water valve time stamp
-        PORTG = B00000000;  //strobe
-        PORTG = B00000001;  //strobe
-        delay(1);
-       PORTG = B00000000;  //strobe
-        delay(RewardTime_Right/5);
-        PORTE = B00000000;
-        PORTA = B11110010; //trial end
-        PORTG = B00000001;
-        delay(1);
-        PORTG = B00000000;
-        break;
-
 
       case 'R':
         mp3_play(20);
@@ -284,6 +253,7 @@ void loop() {
         PORTG = B00000001;  //strobe
         delay(1);
         PORTG = B00000000;  //strobe
+        RewardTime_Right = 60;
         delay(RewardTime_Right);
         PORTE = B00000000;
         PORTA = B11110010; //trial end
@@ -436,6 +406,7 @@ void loop() {
         Ll = false;
         Rl = false;
         PORTH = B00000000; //Off the left/right light
+
         PORTA = B01110000; //early termination
         PORTG = B00000000; 
         PORTG = B00000001;
@@ -499,3 +470,4 @@ void loop() {
   }
 
 }
+
